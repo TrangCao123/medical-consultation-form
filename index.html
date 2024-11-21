@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tư vấn Online cùng ThS BS Lê Hoàng Vinh</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        .header p {
+            color: #666;
+            font-size: 18px;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        .form-group h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+        input[type="text"],
+        input[type="tel"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        .contact-option {
+            margin-bottom: 15px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .required {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>TƯ VẤN ONLINE CÙNG THS BS LÊ HOÀNG VINH</h1>
+            <p>Điền form để đăng ký tư vấn online 1:1 cùng Thạc sĩ Bác sĩ Lê Hoàng Vinh</p>
+        </div>
+
+        <form action="https://formsubmit.co/[trangctt279@gmai.com]" method="POST">
+            <!-- FormSubmit Configuration -->
+            <input type="hidden" name="_subject" value="Đăng ký tư vấn mới">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_autoresponse" value="Cảm ơn bạn đã đăng ký tư vấn. ThS BS Lê Hoàng Vinh sẽ liên hệ với bạn sớm nhất có thể.">
+            <input type="hidden" name="_next" value="thanks.html">
+
+            <div class="form-group">
+                <h3>1. Họ và tên <span class="required">*</span></h3>
+                <input type="text" name="Họ và tên" required>
+            </div>
+
+            <div class="form-group">
+                <h3>2. Nơi ở hiện tại <span class="required">*</span></h3>
+                <input type="text" name="Nơi ở hiện tại" required>
+            </div>
+
+            <div class="form-group">
+                <h3>3. Dịch vụ làm đẹp <span class="required">*</span></h3>
+                <textarea name="Dịch vụ làm đẹp" rows="4" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <h3>4. Thông tin liên hệ <span class="required">*</span></h3>
+                
+                <div class="contact-option">
+                    <label>Số điện thoại:</label>
+                    <input type="tel" name="Số điện thoại">
+                </div>
+
+                <div class="contact-option">
+                    <label>Zalo:</label>
+                    <input type="tel" name="Zalo">
+                </div>
+
+                <div class="contact-option">
+                    <label>LINE:</label>
+                    <input type="text" name="LINE">
+                </div>
+
+                <div class="contact-option">
+                    <label>Viber:</label>
+                    <input type="tel" name="Viber">
+                </div>
+
+                <div class="contact-option">
+                    <label>WhatsApp:</label>
+                    <input type="tel" name="WhatsApp">
+                </div>
+
+                <div class="contact-option">
+                    <label>Thông tin liên hệ khác:</label>
+                    <input type="text" name="Thông tin liên hệ khác">
+                </div>
+            </div>
+
+            <button type="submit">Gửi đăng ký tư vấn</button>
+        </form>
+    </div>
+</body>
+</html>
