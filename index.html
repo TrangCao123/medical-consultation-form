@@ -58,6 +58,21 @@
         }
         .contact-option {
             margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        .contact-option:hover {
+            background-color: #f8f9fa;
+        }
+        .contact-field {
+            margin-top: 10px;
+            margin-left: 25px;
+        }
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        .contact-option label {
+            cursor: pointer;
         }
         button {
             background-color: #3498db;
@@ -76,6 +91,24 @@
         .required {
             color: red;
         }
+        #loading, #success, #error {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+        }
+        #loading {
+            background-color: #fff3cd;
+        }
+        #success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        #error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +118,7 @@
             <p>Điền form để đăng ký tư vấn online 1:1 cùng Thạc sĩ Bác sĩ Lê Hoàng Vinh</p>
         </div>
 
-        <form action="https://formsubmit.co/[trangctt279@gmai.com]" method="POST">
+        <form action="https://formsubmit.co/trangctt279@gmail.com" method="POST" id="consultationForm">
             <!-- FormSubmit Configuration -->
             <input type="hidden" name="_subject" value="Đăng ký tư vấn mới">
             <input type="hidden" name="_template" value="table">
@@ -109,40 +142,103 @@
 
             <div class="form-group">
                 <h3>4. Thông tin liên hệ <span class="required">*</span></h3>
+                <p style="color: #666; margin-bottom: 15px;">Vui lòng chọn phương thức liên hệ bạn mong muốn:</p>
                 
                 <div class="contact-option">
-                    <label>Số điện thoại:</label>
-                    <input type="tel" name="Số điện thoại">
+                    <input type="checkbox" id="phone" name="contact_method" onchange="toggleContactField('phone')">
+                    <label for="phone" style="display: inline;">Số điện thoại</label>
+                    <div id="phoneField" class="contact-field" style="display: none;">
+                        <input type="tel" name="Số điện thoại" placeholder="Nhập số điện thoại của bạn">
+                    </div>
                 </div>
 
                 <div class="contact-option">
-                    <label>Zalo:</label>
-                    <input type="tel" name="Zalo">
+                    <input type="checkbox" id="zalo" name="contact_method" onchange="toggleContactField('zalo')">
+                    <label for="zalo" style="display: inline;">Zalo</label>
+                    <div id="zaloField" class="contact-field" style="display: none;">
+                        <input type="tel" name="Zalo" placeholder="Nhập số Zalo của bạn">
+                    </div>
                 </div>
 
                 <div class="contact-option">
-                    <label>LINE:</label>
-                    <input type="text" name="LINE">
+                    <input type="checkbox" id="line" name="contact_method" onchange="toggleContactField('line')">
+                    <label for="line" style="display: inline;">LINE</label>
+                    <div id="lineField" class="contact-field" style="display: none;">
+                        <input type="text" name="LINE" placeholder="Nhập ID LINE của bạn">
+                    </div>
                 </div>
 
                 <div class="contact-option">
-                    <label>Viber:</label>
-                    <input type="tel" name="Viber">
+                    <input type="checkbox" id="viber" name="contact_method" onchange="toggleContactField('viber')">
+                    <label for="viber" style="display: inline;">Viber</label>
+                    <div id="viberField" class="contact-field" style="display: none;">
+                        <input type="tel" name="Viber" placeholder="Nhập số Viber của bạn">
+                    </div>
                 </div>
 
                 <div class="contact-option">
-                    <label>WhatsApp:</label>
-                    <input type="tel" name="WhatsApp">
+                    <input type="checkbox" id="whatsapp" name="contact_method" onchange="toggleContactField('whatsapp')">
+                    <label for="whatsapp" style="display: inline;">WhatsApp</label>
+                    <div id="whatsappField" class="contact-field" style="display: none;">
+                        <input type="tel" name="WhatsApp" placeholder="Nhập số WhatsApp của bạn">
+                    </div>
                 </div>
 
                 <div class="contact-option">
-                    <label>Thông tin liên hệ khác:</label>
-                    <input type="text" name="Thông tin liên hệ khác">
+                    <input type="checkbox" id="other" name="contact_method" onchange="toggleContactField('other')">
+                    <label for="other" style="display: inline;">Thông tin liên hệ khác</label>
+                    <div id="otherField" class="contact-field" style="display: none;">
+                        <input type="text" name="Thông tin liên hệ khác" placeholder="Nhập thông tin liên hệ khác">
+                    </div>
                 </div>
             </div>
 
             <button type="submit">Gửi đăng ký tư vấn</button>
         </form>
+
+        <div id="loading">Đang gửi thông tin...</div>
+        <div id="success">Đăng ký tư vấn thành công! Chúng tôi sẽ liên hệ với bạn sớm.</div>
+        <div id="error">Có lỗi xảy ra. Vui lòng thử lại sau.</div>
     </div>
+
+    <script>
+        function toggleContactField(fieldName) {
+            const field = document.getElementById(fieldName + 'Field');
+            const checkbox = document.getElementById(fieldName);
+            if (checkbox.checked) {
+                field.style.display = 'block';
+            } else {
+                field.style.display = 'none';
+                // Clear the input when unchecked
+                const input = field.querySelector('input');
+                if (input) input.value = '';
+            }
+        }
+
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            const checkedMethods = document.querySelectorAll('input[name="contact_method"]:checked');
+            if (checkedMethods.length === 0) {
+                e.preventDefault();
+                alert('Vui lòng chọn ít nhất một phương thức liên hệ');
+                return;
+            }
+
+            // Validate that selected methods have values
+            let isValid = true;
+            checkedMethods.forEach(method => {
+                const fieldId = method.id + 'Field';
+                const input = document.querySelector(`#${fieldId} input`);
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                }
+            });
+
+            if (!isValid) {
+                e.preventDefault();
+                alert('Vui lòng điền đầy đủ thông tin cho các phương thức liên hệ đã chọn');
+            }
+        });
+    </script>
 </body>
 </html>
