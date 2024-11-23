@@ -131,7 +131,7 @@
             <p>Điền form để đăng ký tư vấn online 1:1 cùng Thạc sĩ Bác sĩ Lê Hoàng Vinh</p>
         </div>
 
-        <form action="https://script.google.com/macros/s/AKfycbwjGdLP43xK-pDuRscxBluv6CuGtgj1FRg1K-9oyFWcJ1jgVOWsStylmOcW1XS2_Lon7g/exec" method="POST" id="consultationForm">
+        <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbwjGdLP43xK-pDuRscxBluv6CuGtgj1FRg1K-9oyFWcJ1jgVOWsStylmOcW1XS2_Lon7g/exec" method="POST">
             <div class="form-group">
                 <h3>1. Họ và tên <span class="required">*</span></h3>
                 <input type="text" name="Họ và tên" required>
@@ -155,7 +155,7 @@
                     <input type="checkbox" id="phone" name="contact_method" onchange="toggleContactField('phone')">
                     <label for="phone" style="display: inline;">Số điện thoại</label>
                     <div id="phoneField" class="contact-field" style="display: none;">
-                        <input type="tel" name="Số điện thoại" placeholder="Nhập số điện thoại của bạn">
+                        <input type="tel" name="phone" placeholder="Nhập số điện thoại của bạn">
                     </div>
                 </div>
 
@@ -163,7 +163,7 @@
                     <input type="checkbox" id="zalo" name="contact_method" onchange="toggleContactField('zalo')">
                     <label for="zalo" style="display: inline;">Zalo</label>
                     <div id="zaloField" class="contact-field" style="display: none;">
-                        <input type="tel" name="Zalo" placeholder="Nhập số Zalo của bạn">
+                        <input type="tel" name="zalo" placeholder="Nhập số Zalo của bạn">
                     </div>
                 </div>
 
@@ -171,7 +171,7 @@
                     <input type="checkbox" id="line" name="contact_method" onchange="toggleContactField('line')">
                     <label for="line" style="display: inline;">LINE</label>
                     <div id="lineField" class="contact-field" style="display: none;">
-                        <input type="text" name="LINE" placeholder="Nhập ID LINE của bạn">
+                        <input type="text" name="line" placeholder="Nhập ID LINE của bạn">
                     </div>
                 </div>
 
@@ -179,7 +179,7 @@
                     <input type="checkbox" id="viber" name="contact_method" onchange="toggleContactField('viber')">
                     <label for="viber" style="display: inline;">Viber</label>
                     <div id="viberField" class="contact-field" style="display: none;">
-                        <input type="tel" name="Viber" placeholder="Nhập số Viber của bạn">
+                        <input type="tel" name="viber" placeholder="Nhập số Viber của bạn">
                     </div>
                 </div>
 
@@ -187,7 +187,7 @@
                     <input type="checkbox" id="whatsapp" name="contact_method" onchange="toggleContactField('whatsapp')">
                     <label for="whatsapp" style="display: inline;">WhatsApp</label>
                     <div id="whatsappField" class="contact-field" style="display: none;">
-                        <input type="tel" name="WhatsApp" placeholder="Nhập số WhatsApp của bạn">
+                        <input type="tel" name="whatsapp" placeholder="Nhập số WhatsApp của bạn">
                     </div>
                 </div>
             </div>
@@ -239,15 +239,16 @@
 
             document.getElementById('loading').style.display = 'block';
 
+            // Tạo object formData với tên trường chính xác
             const formData = {
                 'Họ và tên': this.querySelector('[name="Họ và tên"]').value,
                 'Nơi ở hiện tại': this.querySelector('[name="Nơi ở hiện tại"]').value,
                 'Dịch vụ làm đẹp': this.querySelector('[name="Dịch vụ làm đẹp"]').value,
-                'Số điện thoại': document.getElementById('phone').checked ? this.querySelector('[name="Số điện thoại"]').value : '',
-                'Zalo': document.getElementById('zalo').checked ? this.querySelector('[name="Zalo"]').value : '',
-                'LINE': document.getElementById('line').checked ? this.querySelector('[name="LINE"]').value : '',
-                'Viber': document.getElementById('viber').checked ? this.querySelector('[name="Viber"]').value : '',
-                'WhatsApp': document.getElementById('whatsapp').checked ? this.querySelector('[name="WhatsApp"]').value : ''
+                'Số điện thoại': document.getElementById('phone').checked ? this.querySelector('[name="phone"]').value : '',
+                'Zalo': document.getElementById('zalo').checked ? this.querySelector('[name="zalo"]').value : '',
+                'LINE': document.getElementById('line').checked ? this.querySelector('[name="line"]').value : '',
+                'Viber': document.getElementById('viber').checked ? this.querySelector('[name="viber"]').value : '',
+                'WhatsApp': document.getElementById('whatsapp').checked ? this.querySelector('[name="whatsapp"]').value : ''
             };
 
             fetch('https://script.google.com/macros/s/AKfycbwjGdLP43xK-pDuRscxBluv6CuGtgj1FRg1K-9oyFWcJ1jgVOWsStylmOcW1XS2_Lon7g/exec', {
