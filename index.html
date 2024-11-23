@@ -240,16 +240,18 @@
             document.getElementById('loading').style.display = 'block';
 
             // Tạo object formData với tên trường chính xác
-            const formData = {
-                'Họ và tên': this.querySelector('[name="Họ và tên"]').value,
-                'Nơi ở hiện tại': this.querySelector('[name="Nơi ở hiện tại"]').value,
-                'Dịch vụ làm đẹp': this.querySelector('[name="Dịch vụ làm đẹp"]').value,
-                'Số điện thoại': document.getElementById('phone').checked ? this.querySelector('[name="phone"]').value : '',
-                'Zalo': document.getElementById('zalo').checked ? this.querySelector('[name="zalo"]').value : '',
-                'LINE': document.getElementById('line').checked ? this.querySelector('[name="line"]').value : '',
-                'Viber': document.getElementById('viber').checked ? this.querySelector('[name="viber"]').value : '',
-                'WhatsApp': document.getElementById('whatsapp').checked ? this.querySelector('[name="whatsapp"]').value : ''
-            };
+        const formData = {
+    'STT': '',  // Để trống, sẽ được tự động điền bởi Apps Script
+    'Thời gian đăng ký': '', // Để trống, sẽ được tự động điền bởi Apps Script
+    'Họ và tên': this.querySelector('[name="Họ và tên"]').value,
+    'Nơi ở hiện tại': this.querySelector('[name="Nơi ở hiện tại"]').value,
+    'Dịch vụ làm đẹp': this.querySelector('[name="Dịch vụ làm đẹp"]').value,
+    'Số điện thoại': document.getElementById('phone').checked ? this.querySelector('[name="phone"]').value : '',
+    'Zalo': document.getElementById('zalo').checked ? this.querySelector('[name="zalo"]').value : '',
+    'LINE': document.getElementById('line').checked ? this.querySelector('[name="line"]').value : '',
+    'Viber': document.getElementById('viber').checked ? this.querySelector('[name="viber"]').value : '',
+    'WhatsApp': document.getElementById('whatsapp').checked ? this.querySelector('[name="whatsapp"]').value : ''
+};
 
             fetch('https://script.google.com/macros/s/AKfycbwjGdLP43xK-pDuRscxBluv6CuGtgj1FRg1K-9oyFWcJ1jgVOWsStylmOcW1XS2_Lon7g/exec', {
                 method: 'POST',
