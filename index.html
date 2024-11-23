@@ -131,12 +131,10 @@
             <p>Điền form để đăng ký tư vấn online 1:1 cùng Thạc sĩ Bác sĩ Lê Hoàng Vinh</p>
         </div>
 
-       <form action="https://formsubmit.co/trangctt279@gmail.com" method="POST" id="consultationForm">
-            <!-- FormSubmit Configuration -->
-            <input type="hidden" name="_subject" value="Đăng ký tư vấn mới">
-            <input type="hidden" name="_template" value="table">
-            <input type="hidden" name="_autoresponse" value="Cảm ơn bạn đã đăng ký tư vấn. ThS BS Lê Hoàng Vinh sẽ liên hệ với bạn sớm nhất có thể.">
-            <input type="hidden" name="_next" value="thanks.html">
+        <form action="https://api.web3forms.com/submit" method="POST" id="consultationForm">
+            <input type="hidden" name="access_key" value="d16a8172-8233-4f9a-93b3-fff43ae575be">
+            <input type="hidden" name="subject" value="Đăng ký tư vấn mới">
+            <input type="hidden" name="redirect" value="https://trangcao123.github.io/medical-consultation-form/thanks.html">
 
             <div class="form-group">
                 <h3>1. Họ và tên <span class="required">*</span></h3>
@@ -214,7 +212,6 @@
                 field.style.display = 'block';
             } else {
                 field.style.display = 'none';
-                // Clear the input when unchecked
                 const input = field.querySelector('input');
                 if (input) input.value = '';
             }
@@ -228,7 +225,6 @@
                 return;
             }
 
-            // Validate that selected methods have values
             let isValid = true;
             checkedMethods.forEach(method => {
                 const fieldId = method.id + 'Field';
@@ -242,7 +238,10 @@
             if (!isValid) {
                 e.preventDefault();
                 alert('Vui lòng điền đầy đủ thông tin cho các phương thức liên hệ đã chọn');
+                return;
             }
+
+            document.getElementById('loading').style.display = 'block';
         });
     </script>
 </body>
