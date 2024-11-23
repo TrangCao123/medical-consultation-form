@@ -123,8 +123,7 @@
             color: #721c24;
         }
     </style>
-</head>
-<body>
+</head><body>
     <div class="container">
         <div class="header">
             <h1>TƯ VẤN ONLINE CÙNG<br><span class="doctor-name">ThS.BS LÊ HOÀNG VINH</span></h1>
@@ -198,9 +197,7 @@
         <div id="loading">Đang gửi thông tin...</div>
         <div id="success">Đăng ký tư vấn thành công! Chúng tôi sẽ liên hệ với bạn sớm.</div>
         <div id="error">Có lỗi xảy ra. Vui lòng thử lại sau.</div>
-    </div>
-
-    <script>
+    </div><script>
         function toggleContactField(fieldName) {
             const field = document.getElementById(fieldName + 'Field');
             const checkbox = document.getElementById(fieldName);
@@ -239,19 +236,18 @@
 
             document.getElementById('loading').style.display = 'block';
 
-            // Tạo object formData với tên trường chính xác
-        const formData = {
-    'STT': '',  // Để trống, sẽ được tự động điền bởi Apps Script
-    'Thời gian đăng ký': '', // Để trống, sẽ được tự động điền bởi Apps Script
-    'Họ và tên': this.querySelector('[name="Họ và tên"]').value,
-    'Nơi ở hiện tại': this.querySelector('[name="Nơi ở hiện tại"]').value,
-    'Dịch vụ làm đẹp': this.querySelector('[name="Dịch vụ làm đẹp"]').value,
-    'Số điện thoại': document.getElementById('phone').checked ? this.querySelector('[name="phone"]').value : '',
-    'Zalo': document.getElementById('zalo').checked ? this.querySelector('[name="zalo"]').value : '',
-    'LINE': document.getElementById('line').checked ? this.querySelector('[name="line"]').value : '',
-    'Viber': document.getElementById('viber').checked ? this.querySelector('[name="viber"]').value : '',
-    'WhatsApp': document.getElementById('whatsapp').checked ? this.querySelector('[name="whatsapp"]').value : ''
-};
+            const formData = {
+                'STT': '',  // Sẽ được tự động điền bởi Apps Script
+                'Thời gian đăng ký': '', // Sẽ được tự động điền bởi Apps Script
+                'Họ và tên': this.querySelector('[name="Họ và tên"]').value,
+                'Nơi ở hiện tại': this.querySelector('[name="Nơi ở hiện tại"]').value,
+                'Dịch vụ làm đẹp': this.querySelector('[name="Dịch vụ làm đẹp"]').value,
+                'Số điện thoại': document.getElementById('phone').checked ? this.querySelector('[name="phone"]').value : '',
+                'Zalo': document.getElementById('zalo').checked ? this.querySelector('[name="zalo"]').value : '',
+                'LINE': document.getElementById('line').checked ? this.querySelector('[name="line"]').value : '',
+                'Viber': document.getElementById('viber').checked ? this.querySelector('[name="viber"]').value : '',
+                'WhatsApp': document.getElementById('whatsapp').checked ? this.querySelector('[name="whatsapp"]').value : ''
+            };
 
             fetch('https://script.google.com/macros/s/AKfycbwjGdLP43xK-pDuRscxBluv6CuGtgj1FRg1K-9oyFWcJ1jgVOWsStylmOcW1XS2_Lon7g/exec', {
                 method: 'POST',
