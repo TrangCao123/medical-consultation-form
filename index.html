@@ -1,248 +1,70 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tư vấn Online cùng ThS BS Lê Hoàng Vinh</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f5f5f5;
+// Thêm đoạn code này vào phần script của form, thay thế phần script cũ
+<script>
+    function toggleContactField(fieldName) {
+        const field = document.getElementById(fieldName + 'Field');
+        const checkbox = document.getElementById(fieldName);
+        if (checkbox.checked) {
+            field.style.display = 'block';
+        } else {
+            field.style.display = 'none';
+            const input = field.querySelector('input');
+            if (input) input.value = '';
         }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 0 20px;
-        }
-        .header h1 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 32px;
-            line-height: 1.4;
-            text-transform: uppercase;
-            font-weight: bold;
-        }
-        .doctor-name {
-            color: #3498db;
-            font-size: 36px;
-            margin-top: 10px;
-            display: block;
-        }
-        .header p {
-            color: #666;
-            font-size: 18px;
-            margin-top: 15px;
-            line-height: 1.5;
-        }
-        .form-group {
-            margin-bottom: 25px;
-        }
-        .form-group h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 5px;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #444;
-        }
-        input[type="text"],
-        input[type="tel"],
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-        .contact-option {
-            margin-bottom: 15px;
-            padding: 10px;
-            border-radius: 4px;
-        }
-        .contact-option:hover {
-            background-color: #f8f9fa;
-        }
-        .contact-field {
-            margin-top: 10px;
-            margin-left: 25px;
-        }
-        input[type="checkbox"] {
-            margin-right: 8px;
-        }
-        .contact-option label {
-            cursor: pointer;
-        }
-        button {
-            background-color: #3498db;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 20px;
-        }
-        button:hover {
-            background-color: #2980b9;
-        }
-        .required {
-            color: red;
-        }
-        #loading, #success, #error {
-            display: none;
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 4px;
-            text-align: center;
-        }
-        #loading {
-            background-color: #fff3cd;
-        }
-        #success {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        #error {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>TƯ VẤN ONLINE CÙNG<br><span class="doctor-name">ThS.BS LÊ HOÀNG VINH</span></h1>
-            <p>Điền form để đăng ký tư vấn online 1:1 cùng Thạc sĩ Bác sĩ Lê Hoàng Vinh</p>
-        </div>
+    }
 
-        <form action="https://api.web3forms.com/submit" method="POST" id="consultationForm">
-            <input type="hidden" name="access_key" value="d16a8172-8233-4f9a-93b3-fff43ae575be">
-            <input type="hidden" name="subject" value="Đăng ký tư vấn mới">
-            <input type="hidden" name="redirect" value="https://trangcao123.github.io/medical-consultation-form/thanks.html">
+    document.getElementById('consultationForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const checkedMethods = document.querySelectorAll('input[name="contact_method"]:checked');
+        if (checkedMethods.length === 0) {
+            alert('Vui lòng chọn ít nhất một phương thức liên hệ');
+            return;
+        }
 
-            <div class="form-group">
-                <h3>1. Họ và tên <span class="required">*</span></h3>
-                <input type="text" name="Họ và tên" required>
-            </div>
-
-            <div class="form-group">
-                <h3>2. Nơi ở hiện tại <span class="required">*</span></h3>
-                <input type="text" name="Nơi ở hiện tại" required>
-            </div>
-
-            <div class="form-group">
-                <h3>3. Dịch vụ làm đẹp <span class="required">*</span></h3>
-                <textarea name="Dịch vụ làm đẹp" rows="4" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <h3>4. Thông tin liên hệ <span class="required">*</span></h3>
-                <p style="color: #666; margin-bottom: 15px;">Vui lòng chọn phương thức liên hệ bạn mong muốn:</p>
-                
-                <div class="contact-option">
-                    <input type="checkbox" id="phone" name="contact_method" onchange="toggleContactField('phone')">
-                    <label for="phone" style="display: inline;">Số điện thoại</label>
-                    <div id="phoneField" class="contact-field" style="display: none;">
-                        <input type="tel" name="Số điện thoại" placeholder="Nhập số điện thoại của bạn">
-                    </div>
-                </div>
-
-                <div class="contact-option">
-                    <input type="checkbox" id="zalo" name="contact_method" onchange="toggleContactField('zalo')">
-                    <label for="zalo" style="display: inline;">Zalo</label>
-                    <div id="zaloField" class="contact-field" style="display: none;">
-                        <input type="tel" name="Zalo" placeholder="Nhập số Zalo của bạn">
-                    </div>
-                </div>
-
-                <div class="contact-option">
-                    <input type="checkbox" id="line" name="contact_method" onchange="toggleContactField('line')">
-                    <label for="line" style="display: inline;">LINE</label>
-                    <div id="lineField" class="contact-field" style="display: none;">
-                        <input type="text" name="LINE" placeholder="Nhập ID LINE của bạn">
-                    </div>
-                </div>
-
-                <div class="contact-option">
-                    <input type="checkbox" id="viber" name="contact_method" onchange="toggleContactField('viber')">
-                    <label for="viber" style="display: inline;">Viber</label>
-                    <div id="viberField" class="contact-field" style="display: none;">
-                        <input type="tel" name="Viber" placeholder="Nhập số Viber của bạn">
-                    </div>
-                </div>
-
-                <div class="contact-option">
-                    <input type="checkbox" id="whatsapp" name="contact_method" onchange="toggleContactField('whatsapp')">
-                    <label for="whatsapp" style="display: inline;">WhatsApp</label>
-                    <div id="whatsappField" class="contact-field" style="display: none;">
-                        <input type="tel" name="WhatsApp" placeholder="Nhập số WhatsApp của bạn">
-                    </div>
-                </div>
-            </div>
-
-            <button type="submit">Gửi đăng ký tư vấn</button>
-        </form>
-
-        <div id="loading">Đang gửi thông tin...</div>
-        <div id="success">Đăng ký tư vấn thành công! Chúng tôi sẽ liên hệ với bạn sớm.</div>
-        <div id="error">Có lỗi xảy ra. Vui lòng thử lại sau.</div>
-    </div>
-
-    <script>
-        function toggleContactField(fieldName) {
-            const field = document.getElementById(fieldName + 'Field');
-            const checkbox = document.getElementById(fieldName);
-            if (checkbox.checked) {
-                field.style.display = 'block';
-            } else {
-                field.style.display = 'none';
-                const input = field.querySelector('input');
-                if (input) input.value = '';
+        let isValid = true;
+        checkedMethods.forEach(method => {
+            const fieldId = method.id + 'Field';
+            const input = document.querySelector(`#${fieldId} input`);
+            if (!input.value.trim()) {
+                isValid = false;
+                input.style.borderColor = 'red';
             }
-        }
-
-        document.getElementById('consultationForm').addEventListener('submit', function(e) {
-            const checkedMethods = document.querySelectorAll('input[name="contact_method"]:checked');
-            if (checkedMethods.length === 0) {
-                e.preventDefault();
-                alert('Vui lòng chọn ít nhất một phương thức liên hệ');
-                return;
-            }
-
-            let isValid = true;
-            checkedMethods.forEach(method => {
-                const fieldId = method.id + 'Field';
-                const input = document.querySelector(`#${fieldId} input`);
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.style.borderColor = 'red';
-                }
-            });
-
-            if (!isValid) {
-                e.preventDefault();
-                alert('Vui lòng điền đầy đủ thông tin cho các phương thức liên hệ đã chọn');
-                return;
-            }
-
-            document.getElementById('loading').style.display = 'block';
         });
-    </script>
-</body>
-</html>
+
+        if (!isValid) {
+            alert('Vui lòng điền đầy đủ thông tin cho các phương thức liên hệ đã chọn');
+            return;
+        }
+
+        // Hiển thị loading
+        document.getElementById('loading').style.display = 'block';
+
+        // Tạo object chứa dữ liệu form
+        const formData = {
+            'Họ và tên': this.querySelector('[name="Họ và tên"]').value,
+            'Nơi ở hiện tại': this.querySelector('[name="Nơi ở hiện tại"]').value,
+            'Dịch vụ làm đẹp': this.querySelector('[name="Dịch vụ làm đẹp"]').value,
+            'Số điện thoại': document.getElementById('phone').checked ? this.querySelector('[name="Số điện thoại"]').value : '',
+            'Zalo': document.getElementById('zalo').checked ? this.querySelector('[name="Zalo"]').value : '',
+            'LINE': document.getElementById('line').checked ? this.querySelector('[name="LINE"]').value : '',
+            'Viber': document.getElementById('viber').checked ? this.querySelector('[name="Viber"]').value : '',
+            'WhatsApp': document.getElementById('whatsapp').checked ? this.querySelector('[name="WhatsApp"]').value : ''
+        };
+
+        // Gửi dữ liệu đến Google Apps Script
+        fetch('https://script.google.com/macros/s/AKfycbwjGdLP43xK-pDuRscxBluv6CuGtgj1FRg1K-9oyFWcJ1jgVOWsStylmOcW1XS2_Lon7g/exec', {
+            method: 'POST',
+            body: JSON.stringify(formData),
+            mode: 'no-cors'
+        })
+        .then(response => {
+            document.getElementById('loading').style.display = 'none';
+            window.location.href = 'thanks.html';
+        })
+        .catch(error => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('error').style.display = 'block';
+            console.error('Error!', error);
+        });
+    });
+</script>
