@@ -131,7 +131,7 @@
             <p>Điền form để đăng ký tư vấn online 1:1 cùng Thạc sĩ Bác sĩ Lê Hoàng Vinh</p>
         </div>
 
-        <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbzT7ZCUTO6pr7PkIzu5ZaGKV28n_v6teVYK1N88MghLJe71llBslS0eh1Z_nY9uygdNZg/exec" method="POST">
+        <form id="consultationForm" action="https://script.google.com/macros/s/AKfycbyi3Ur9MwDfv584VfgNqm5JzgmKeWJdQJWm_UkJh1_qcahMixhupaNooV71dZIBPzaYYw/exec" method="POST">
             <div class="form-group">
                 <h3>1. Họ và tên <span class="required">*</span></h3>
                 <input type="text" name="Họ và tên" required>
@@ -200,19 +200,71 @@
         <div id="error">Có lỗi xảy ra. Vui lòng thử lại sau.</div>
     </div>
 
-<script>
-    function toggleContactField(fieldName) {
-        const field = document.getElementById(fieldName + 'Field');
-        const checkbox = document.getElementById(fieldName);
-        if (checkbox.checked) {
-            field.style.display = 'block';
-        } else {
-            field.style.display = 'none';
-            const input = field.querySelector('input');
-            if (input) input.value = '';
+    <script>
+        function toggleContactField(fieldName) {
+            const field = document.getElementById(fieldName + 'Field');
+            const checkbox = document.getElementById(fieldName);
+            if (checkbox.checked) {
+                field.style.display = 'block';
+            } else {
+                field.style.display = 'none';
+                const input = field.querySelector('input');
+                if (input) input.value = '';
+            }
         }
-    }
 
-    document.getElementById('consultation
+        document.getElementById('consultationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const checkedMethods = document.querySelectorAll('input[name="contact_method"]:checked');
+            if (checkedMethods.length === 0) {
+                alert('Vui lòng chọn ít nhất một phương thức liên hệ');
+                return;
+            }
+
+            let isValid = true;
+            checkedMethods.forEach(method => {
+                const fieldId = method.id + 'Field';
+                const input = document.querySelector(`#${fieldId} input`);
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                }
+            });
+
+            if (!isValid) {
+                alert('Vui lòng điền đầy đủ thông tin cho các phương thức liên hệ đã chọn');
+                return;
+            }
+
+            document.getElementById('loading').style.display = 'block';
+
+            const formData = {
+                'Họ và tên': this.querySelector('[name="Họ và tên"]').value,
+                'Nơi ở hiện tại': this.querySelector('[name="Nơi ở hiện tại"]').value,
+                'Dịch vụ làm đẹp': this.querySelector('[name="Dịch vụ làm đẹp"]').value,
+                'phone': document.getElementById('phone').checked ? this.querySelector('[name="phone"]').value : '',
+                'zalo': document.getElementById('zalo').checked ? this.querySelector('[name="zalo"]').value : '',
+                'line': document.getElementById('line').checked ? this.querySelector('[name="line"]').value : '',
+                'viber': document.getElementById('viber').checked ? this.querySelector('[name="viber"]').value : '',
+                'whatsapp': document.getElementById('whatsapp').checked ? this.querySelector('[name="whatsapp"]').value : ''
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbyi3Ur9MwDfv584VfgNqm5JzgmKeWJdQJWm_UkJh1_qcahMixhupaNooV71dZIBPzaYYw/exec', {
+                method: 'POST',
+                body: JSON.stringify(formData),
+                mode: 'no-cors'
+            })
+            .then(response => {
                 document.getElementById('loading').style.display = 'none';
-                document
+                window.location.href = 'thanks.html';
+            })
+            .catch(error => {
+                document.getElementById('loading').style.display = 'none';
+                document.getElementById('error').style.display = 'block';
+                console.error('Error!', error);
+            });
+        });
+    </script>
+</body>
+</html>
